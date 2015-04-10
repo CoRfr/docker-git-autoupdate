@@ -9,9 +9,10 @@ Arguments:
  - `GIT_URL`: provided as this to git clone
  - `POLLING_FREQ`: polling frequency as given to cron, something like "*/5 * * * *", default to 5 minutes
  - `SSH_KEY`: can be used to provide an SSH key to authenticate against remote repository
-            needs to be base64'd
 
-In case URL is ssh (ssh:// or git@), the image will automatically accept the remote key.
+Warning:
+ - `SSH_KEY` expect as base64'd string
+ - In case URL is ssh (ssh:// or git@), the image will automatically accept the remote key.
 
 For instance you can deploy this as a systemd unit to serve an always up-to-date repository to other services.
 
