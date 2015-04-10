@@ -16,11 +16,13 @@ Warning:
 
 For instance you can deploy this as a systemd unit to serve an always up-to-date repository to other services.
 
-Sample:
-`docker run \
+Sample usage:
+```
+docker run \
             --rm \
             --name legato-docs
             -e GIT_URL=git@github.com:legatoproject/legato-docs.git \
             -e SSH_KEY="$(cat ~/.ssh/id_rsa | base64)" \
-            corfr/git-autoupdate`
+            corfr/git-autoupdate
+ ```
 
