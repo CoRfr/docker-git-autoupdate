@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd /git
+cd $VOLUME_PATH
 git pull
 

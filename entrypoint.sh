@@ -36,7 +36,7 @@ if [ -n "$ssh_host" ]; then
     echo $ssh_keyscan > /root/.ssh/known_hosts
 fi
 
-git clone $GIT_URL /git
+git clone $GIT_URL $VOLUME_PATH
 
 # Make sure the update works
 /update.sh

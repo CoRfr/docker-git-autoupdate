@@ -13,6 +13,7 @@ RUN \
 ADD entrypoint.sh /
 ADD update.sh /
 
+ENV VOLUME_PATH /git
 VOLUME ["/git"]
 
 ENTRYPOINT ["/entrypoint.sh"]
