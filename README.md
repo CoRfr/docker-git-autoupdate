@@ -1,6 +1,8 @@
 Git auto-updating container
 ---------------------------
 
+Image: [corfr/git-autoupdate](https://registry.hub.docker.com/u/corfr/git-autoupdate/)
+
 This image:
  - takes a `GIT_URL`, that it clones and expose as a volume (`/git`)
  - polls from the git remote periodically

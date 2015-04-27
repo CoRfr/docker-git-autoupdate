@@ -41,7 +41,7 @@ git clone $GIT_URL $VOLUME_PATH
 # Make sure the update works
 /update.sh
 
-echo "$POLLING_FREQ root /update.sh" > /etc/crontab
+echo "$POLLING_FREQ root /update.sh" | crontab -
 
 rsyslogd
 cron
