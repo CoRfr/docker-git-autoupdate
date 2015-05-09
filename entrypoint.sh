@@ -38,12 +38,17 @@ fi
 
 git clone $GIT_URL $VOLUME_PATH
 
+# No logrotate
+rm /etc/cron.daily/logrotate
+
 # Make sure the update works
 /update.sh
 
-echo "$POLLING_FREQ root /update.sh" | crontab -
+touch /var/log/update.log
+echo "$POLLING_FREQ /update.sh >> /var/log/update.log 2>&1" | crontab -
 
 rsyslogd
 cron
-tail -f /var/log/syslog
+tail -f /var/log/syslog &
+tail -f /var/log/update.log
 
