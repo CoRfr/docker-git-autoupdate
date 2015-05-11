@@ -41,6 +41,8 @@ git clone $GIT_URL $VOLUME_PATH
 # No logrotate
 rm /etc/cron.daily/logrotate
 
+echo "export VOLUME_PATH=\"$VOLUME_PATH\"" > /etc/update.env.sh
+
 # Make sure the update works
 /update.sh
 
