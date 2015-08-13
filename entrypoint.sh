@@ -51,6 +51,18 @@ echo "$POLLING_FREQ /update.sh >> /var/log/update.log 2>&1" | crontab -
 
 rsyslogd
 cron
+CRON_PID=$!
 tail -f /var/log/syslog &
-tail -f /var/log/update.log
+tail -f /var/log/update.log &
+
+set +e
+if [ -n "$WITH_TCP_TRIGGER" ]; then
+    while true; do
+        nc -l -p 10000
+        echo "TCP triggered" >> /var/log/update.log
+        /update.sh >> /var/log/update.log 2>&1
+    done
+else
+    wait $CRON_PID
+fi
 
