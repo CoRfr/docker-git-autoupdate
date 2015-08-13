@@ -19,3 +19,4 @@ VOLUME ["/git"]
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 10000
+

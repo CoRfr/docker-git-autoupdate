@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-if [ -z "$GIT_URL" ]; then
-    echo "GIT_URL not provided"
+if [ -z "$GIT_URL" ] && ! [ -e "$VOLUME_PATH/.git" ]; then
+    echo "GIT_URL not provided and $VOLUME_PATH is empty"
     exit 1
 fi
 
@@ -9,6 +9,8 @@ mkdir -p /root/.ssh
 
 SSH_TYPE=${SSH_TYPE:-id_rsa}
 POLLING_FREQ=${POLLING_FREQ:-"*/5 * * * *"}
+GIT_BRANCH=${GIT_BRANCH:-master}
+GIT_REMOTE=${GIT_REMOTE:-origin}
 
 if [ -n "$SSH_KEY" ]; then
     echo "SSH_KEY of type $SSH_TYPE provided"
@@ -36,7 +38,22 @@ if [ -n "$ssh_host" ]; then
     echo $ssh_keyscan > /root/.ssh/known_hosts
 fi
 
-git clone $GIT_URL $VOLUME_PATH
+if ! [ -e "$VOLUME_PATH" ]; then
+    git clone -b $GIT_BRANCH $GIT_URL $VOLUME_PATH
+else
+    cd $VOLUME_PATH
+
+    if [ -n "$GIT_URL" ]; then
+        if git remote | grep $GIT_REMOTE; then
+            git remote set-url $GIT_REMOTE $GIT_URL
+        else
+            git remote add $GIT_REMOTE $GIT_URL
+        fi
+    fi
+
+    git fetch $GIT_REMOTE
+    git reset --hard $GIT_REMOTE/$GIT_BRANCH
+fi
 
 # No logrotate
 rm /etc/cron.daily/logrotate
