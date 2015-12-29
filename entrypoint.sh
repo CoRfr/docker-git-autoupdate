@@ -39,11 +39,14 @@ if [ -n "$ssh_host" ]; then
 fi
 
 if ! [ -e "$VOLUME_PATH" ]; then
+    echo "Cloning $GIT_URL [$GIT_BRANCH] -> $VOLUME_PATH"
     git clone -b $GIT_BRANCH $GIT_URL $VOLUME_PATH
 else
     cd $VOLUME_PATH
 
     if [ -n "$GIT_URL" ]; then
+        echo "Setting $GIT_REMOTE @ $GIT_URL"
+
         if git remote | grep $GIT_REMOTE; then
             git remote set-url $GIT_REMOTE $GIT_URL
         else
@@ -51,6 +54,7 @@ else
         fi
     fi
 
+    echo "Fetching $GIT_REMOTE"
     git fetch $GIT_REMOTE
     git reset --hard $GIT_REMOTE/$GIT_BRANCH
 fi
