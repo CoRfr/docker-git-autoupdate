@@ -38,7 +38,7 @@ if [ -n "$ssh_host" ]; then
     echo $ssh_keyscan > /root/.ssh/known_hosts
 fi
 
-if ! [ -e "$VOLUME_PATH" ]; then
+if ! [ -e "$VOLUME_PATH/.git" ]; then
     echo "Cloning $GIT_URL [$GIT_BRANCH] -> $VOLUME_PATH"
     git clone -b $GIT_BRANCH $GIT_URL $VOLUME_PATH
 else
