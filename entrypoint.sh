@@ -60,7 +60,9 @@ else
 fi
 
 # No logrotate
-rm /etc/cron.daily/logrotate
+if [ -e "/etc/cron.daily/logrotate" ]; then
+    rm /etc/cron.daily/logrotate
+fi
 
 echo "export VOLUME_PATH=\"$VOLUME_PATH\"" > /etc/update.env.sh
 
