@@ -56,7 +56,7 @@ else
 
     echo "Fetching $GIT_REMOTE"
     git fetch $GIT_REMOTE
-    git reset --hard $GIT_REMOTE/$GIT_BRANCH
+    git reset --hard FETCH_HEAD
 fi
 
 # No logrotate
@@ -79,6 +79,7 @@ tail -f /var/log/syslog &
 tail -f /var/log/update.log &
 
 set +e
+
 if [ -n "$WITH_TCP_TRIGGER" ]; then
     while true; do
         nc -l -p 10000
